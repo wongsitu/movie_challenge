@@ -35,7 +35,7 @@ class UserActions extends Component {
           <Button
             className="mr-2"
             variant="contained"
-            onClick={() => this.removeFromCart(this.props.selectedMovie)}
+            onClick={() => this.reportRemoveFromCart(this.props.selectedMovie)}
             color="secondary"
           >
             Remove

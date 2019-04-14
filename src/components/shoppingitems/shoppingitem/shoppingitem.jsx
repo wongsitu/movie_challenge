@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
+import { movieContext } from '../../../contexts/movieContext'
 
 const styles = theme => ({
     card: {
@@ -30,44 +31,47 @@ function MediaControlCard(props) {
     const { classes } = props;
 
     return (
-    <Card className={classes.card}>
-        <CardMedia
-            className={classes.cover}
-            image={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`}
-            title="Live from space album cover"
-        />
-        <div className={classes.details}>
-            <CardContent className={classes.content}>
-                <Typography component="h5" variant="h5">
-                    {props.movie.original_title}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                    <div>
-                        Popularity: {props.movie.popularity}
+    <movieContext.Consumer>
+        {value =>
+            <Card className={classes.card}>
+                <CardMedia
+                    className={classes.cover}
+                    image={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`}
+                    title="Live from space album cover"
+                />
+                <div className={classes.details}>
+                    <CardContent className={classes.content}>
+                        <Typography component="h5" variant="h5">
+                            {props.movie.original_title}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                            <div>
+                                Popularity: {props.movie.popularity}
+                            </div>
+                            <div>
+                                Release date: {props.movie.release_date}
+                            </div>
+                            <div>
+                                Rotten Tomatoes {props.movie.vote_average}
+                            </div>
+                            <div>
+                                Votes: {props.movie.vote_count}
+                            </div>
+                        </Typography>
+                    </CardContent>
+                    <div className='m-auto p-3'>
+                        <Link to='/moviedetail'>
+                            <Button className='mr-2' variant="contained" onClick={()=> value.detailMovie(props.movie)} color="primary">
+                                Details
+                            </Button>
+                        </Link>
+                        <Button variant="contained" color="secondary" onClick={()=> value.removeFromCart(props.movie)} className={classes.button}>
+                            Remove
+                        </Button>
                     </div>
-                    <div>
-                        Release date: {props.movie.release_date}
-                    </div>
-                    <div>
-                        Rotten Tomatoes {props.movie.vote_average}
-                    </div>
-                    <div>
-                        Votes: {props.movie.vote_count}
-                    </div>
-                </Typography>
-            </CardContent>
-            <div className='m-auto p-3'>
-                <Link to='/moviedetail'>
-                    <Button className='mr-2' variant="contained" onClick={()=> props.detailMovie(props.movie)} color="primary">
-                        Details
-                    </Button>
-                </Link>
-                <Button variant="contained" color="secondary" onClick={()=> props.removeFromCart(props.movie)} className={classes.button}>
-                    Remove
-                </Button>
-            </div>
-        </div>
-    </Card>
+                </div>
+            </Card>}
+    </movieContext.Consumer>
     );
 }
 

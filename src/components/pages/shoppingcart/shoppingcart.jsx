@@ -28,7 +28,7 @@ class Shoppingcart extends Component {
             movieCart = 
             <div>
                 <h1>Your movies</h1>
-                <Shoppingitems movies={this.props.movies} detailMovie={this.props.detailMovie} removeFromCart={this.props.removeFromCart} genres={this.props.genres}/>
+                <Shoppingitems movies={this.props.movies}/>
             </div>
         }
         return (

@@ -37,7 +37,7 @@ class Homepage extends Component {
           className='m-1'
           label={elem.name}
           color="secondary"
-          onClick={()=>{this.removeFilter(elem.id)}}
+          onDelete={()=>{this.removeFilter(elem.id)}}
           clickable
         />
       )
@@ -51,14 +51,14 @@ class Homepage extends Component {
               {selectedGenresChips}
             </div>
           </div>
-          <Cards movies={this.props.movies} addToCart={this.props.addToCart} detailMovie={this.props.detailMovie}/>
+          <Cards movies={this.props.movies}/>
         </div>
       );
     } 
     return (
       <div className="container">
         <h1>New Releases</h1>
-        <Cards movies={this.state.homeMovies} addToCart={this.props.addToCart} detailMovie={this.props.detailMovie}/>
+        <Cards movies={this.state.homeMovies}/>
       </div>
     );
   }

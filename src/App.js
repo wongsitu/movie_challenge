@@ -6,6 +6,7 @@ import  Moviedetail  from './components/pages/moviedetail/moviedetail'
 import  ShoppingCart  from './components/pages/shoppingcart/shoppingcart'
 import Navbar from './components/navbar/navbar'
 import axios from 'axios'
+import { movieContext } from './contexts/movieContext'
 
 class App extends Component {
   constructor () {
@@ -115,13 +116,29 @@ class App extends Component {
         </div>
         <Switch>
           <Route path='/' exact render={() => {return (
-            <Homepage movies={this.state.movies} addToCart={this.addToCart} genres={this.state.genres} detailMovie={this.detailMovie} selectedGenres={this.state.selectedGenres} toggleGenre={this.toggleGenre}/>
+            <movieContext.Provider 
+              value={
+                { 
+                  addToCart: this.addToCart,
+                  detailMovie: this.detailMovie,
+                }
+              }>
+              <Homepage movies={this.state.movies} genres={this.state.genres} selectedGenres={this.state.selectedGenres} toggleGenre={this.toggleGenre}/>
+            </movieContext.Provider>
           )}}/>
           <Route path='/moviedetail' exact render={()=>{return(
             <Moviedetail selectedMovie={this.state.selectedMovie} selectedMovies={this.state.selectedMovies} removeFromCart={this.removeFromCart} addToCart={this.addToCart}/>
           )}} />
           <Route path='/shoppingcart' exact render={()=>{return(
+            <movieContext.Provider
+              value={
+                { 
+                  detailMovie: this.detailMovie,
+                  removeFromCart: this.removeFromCart,
+                }
+              }>
             <ShoppingCart movies={this.state.selectedMovies} detailMovie={this.detailMovie} removeFromCart={this.removeFromCart} genres={this.state.genres} resetDetailView={this.resetDetailView}/>
+            </movieContext.Provider>
           )}} />
         </Switch>
       </div>

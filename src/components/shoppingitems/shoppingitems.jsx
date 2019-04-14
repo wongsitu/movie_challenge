@@ -15,10 +15,6 @@ class Shoppingitems extends Component {
           <MediaControlCard
             movie={elem}
             key={index}
-            detailMovie={this.props.detailMovie}
-            removeFromCart={this.props.removeFromCart}
-            addOrRemoveToCart={this.props.addOrRemoveToCart}
-            genres={this.props.genres}
           />
         </div>
       );

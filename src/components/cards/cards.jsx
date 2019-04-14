@@ -14,7 +14,7 @@ class Cards extends Component {
         let CardsContainer = this.props.movies.map((elem,index) => {
             return(
                 <div className="m-2" key={index}>
-                    <MediaCard movie={elem} key={index} addToCart={this.props.addToCart} detailMovie={this.props.detailMovie}/>
+                    <MediaCard movie={elem} key={index}/>
                 </div>
             )
         })
