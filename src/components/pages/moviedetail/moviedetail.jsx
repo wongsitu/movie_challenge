@@ -37,6 +37,9 @@ class Moviedetail extends Component {
                             <p>Popularity: {this.props.selectedMovie.popularity}</p>
                             <p>Rotten tomatoes: {this.props.selectedMovie.vote_average}</p>
                             <p>Total votes: {this.props.selectedMovie.vote_count}</p>
+                            <p>
+                                Price: <strong className='text-success'>{2 * parseInt(this.props.selectedMovie.vote_average)} USD</strong>
+                            </p>
                             <UserActions selectedMovie={this.props.selectedMovie} selectedMovies={this.props.selectedMovies} removeFromCart={this.props.removeFromCart} addToCart={this.props.addToCart}/>
                         </div>
                     </div>

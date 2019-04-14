@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from 'react-router-dom'
 import { movieContext } from '../../../contexts/movieContext';
+import Truncate from 'react-truncate';
 
 const styles = {
   card: {
@@ -35,10 +36,10 @@ const MediaCard = props => {
                   />
                   <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                      {props.movie.original_title}
+                    {props.movie.original_title}
                   </Typography>
                   <Typography component="p">
-                      {props.movie.overview}
+                      {(props.movie.overview).length > 150 ? (props.movie.overview).slice(0, 150) + '...' :(props.movie.overview)}
                   </Typography>
                   </CardContent>
               </CardActionArea>

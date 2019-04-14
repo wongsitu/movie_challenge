@@ -57,6 +57,9 @@ function MediaControlCard(props) {
                             <div>
                                 Votes: {props.movie.vote_count}
                             </div>
+                            <div>
+                                Price: <strong className='text-success'>{2 * parseInt(props.movie.vote_average)} USD</strong>
+                            </div>
                         </Typography>
                     </CardContent>
                     <div className='m-auto p-3'>

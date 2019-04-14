@@ -133,11 +133,12 @@ class App extends Component {
             <movieContext.Provider
               value={
                 { 
+                  selectedMovies: this.state.selectedMovies,
                   detailMovie: this.detailMovie,
                   removeFromCart: this.removeFromCart,
                 }
               }>
-            <ShoppingCart movies={this.state.selectedMovies} detailMovie={this.detailMovie} removeFromCart={this.removeFromCart} genres={this.state.genres} resetDetailView={this.resetDetailView}/>
+            <ShoppingCart movies={this.state.selectedMovies} genres={this.state.genres} resetDetailView={this.resetDetailView}/>
             </movieContext.Provider>
           )}} />
         </Switch>
