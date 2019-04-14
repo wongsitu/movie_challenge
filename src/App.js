@@ -7,13 +7,13 @@ import  ShoppingCart  from './components/pages/shoppingcart/shoppingcart'
 import Navbar from './components/navbar/navbar'
 import axios from 'axios'
 
+const UserContext = React.createContext()
 class App extends Component {
   constructor () {
     super()
 
     this.state = {
       movies: [],
-      shoppingcart: [],
       genres:[],
       selectedGenres: [],
       selectedMovies: [],
@@ -55,7 +55,24 @@ class App extends Component {
         this.setState({selectedGenres: array});
       }
     }
+    console.log(this.state.selectedGenres)
     this.searchbyFilter()
+  }
+
+  addOrRemoveToCart = (movie) => {
+    if (!this.state.selectedMovies.includes(movie)) {
+      let array = this.state.selectedMovies;
+      array.push(movie);
+      this.setState({selectedMovies: array});
+    } else {
+      let array = this.state.selectedMovies;
+      var index = array.indexOf(movie)
+      if (index !== -1) {
+        array.splice(index, 1);
+        this.setState({selectedMovies: array});
+      }
+    }
+    console.log(this.state.selectedMovies)
   }
 
   componentDidMount () {
@@ -68,11 +85,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar handleSearch={this.handleSearch} genres={this.state.genres} toggleGenre={this.toggleGenre}/>
+        <Navbar handleSearch={this.handleSearch} genres={this.state.genres} toggleGenre={this.toggleGenre} counter={this.state.selectedMovies.length}/>
         <Switch>
-          <Route path='/' exact render={() => {return (<Homepage movies={this.state.movies}/>)}}/>
+          <Route path='/' exact render={() => {return (
+            <UserContext.Provider value={this.addOrRemoveToCart}>
+              <Homepage movies={this.state.movies} addOrRemoveToCart={this.addOrRemoveToCart}/>
+            </UserContext.Provider>
+            )}}/>
           <Route path='/moviedetail' exact render={()=>{return(<Moviedetail/>)}} />
-          <Route path='/shoppingcart' exact render={()=>{return(<ShoppingCart/>)}} />
+          <Route path='/shoppingcart' exact render={()=>{return(<ShoppingCart movies={this.state.selectedMovies}/>)}} />
         </Switch>
       </div>
     );

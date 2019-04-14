@@ -38,7 +38,7 @@ const MediaCard = props => {
             </CardContent>
         </CardActionArea>
         <CardActions>
-            <Button size="small" color="primary">
+            <Button size="small" color="primary" onClick={()=> props.addOrRemoveToCart(props.movie)}>
                 <i className="fas fa-shopping-cart"></i> Add cart
             </Button>
             <Button size="small" color="primary">

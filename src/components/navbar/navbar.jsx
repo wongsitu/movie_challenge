@@ -3,6 +3,8 @@ import './navbar.css';
 import { Link, Redirect } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 
 class Navbar extends Component {
     constructor (props) {
@@ -38,8 +40,19 @@ class Navbar extends Component {
                 <div className='col-12 bg-dark pt-3 pb-3'>
                     <div className='d-flex justify-content-center align-items-center'>
                         <img className='mr-3 ml-3' width='100' src="moviedb.svg" alt=''/>
-                        <Link to='/' className='mr-3 ml-3' href="#"><h5 className='text-white'>Home <i className="fas fa-home"></i></h5></Link>
-                        <Link to='/shoppingcart' className='mr-3 ml-3' href="#"><h5 className='text-white'>Shopping Cart <i className="fas fa-shopping-cart"></i></h5></Link>
+                        <Link to='/' className='mr-3 ml-3' href="#">
+                            <h5 className='text-white'>
+                                Home <i className="fas fa-home"></i>
+                            </h5>
+                        </Link>
+                        <Link to='/shoppingcart' className='mr-3 ml-3' href="#">
+                            <h5 className='text-white'>
+                                Shopping Cart 
+                                <Badge badgeContent={this.props.counter} color="primary">
+                                    <i className="fas fa-shopping-cart"></i>
+                                </Badge>
+                            </h5>
+                        </Link>
                     </div>
                 </div>
                 <div className="col-12 bg-dark pt-3 pb-3 separator-top">

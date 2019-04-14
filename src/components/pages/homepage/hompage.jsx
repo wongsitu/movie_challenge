@@ -24,14 +24,14 @@ class Homepage extends Component {
     if(this.props.movies.length > 0){
       return (
         <div className="container">
-          <Cards movies={this.props.movies}/>
+          <Cards movies={this.props.movies} addOrRemoveToCart={this.props.addOrRemoveToCart}/>
         </div>
       );
     } 
     return (
       <div className="container">
         <h1>New Releases</h1>
-        <Cards movies={this.state.homeMovies}/>
+        <Cards movies={this.state.homeMovies} addOrRemoveToCart={this.props.addOrRemoveToCart}/>
       </div>
     );
   }
