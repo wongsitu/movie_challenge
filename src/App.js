@@ -115,10 +115,10 @@ class App extends Component {
         </div>
         <Switch>
           <Route path='/' exact render={() => {return (
-            <Homepage movies={this.state.movies} addToCart={this.addToCart} detailMovie={this.detailMovie}/>
+            <Homepage movies={this.state.movies} addToCart={this.addToCart} genres={this.state.genres} detailMovie={this.detailMovie} selectedGenres={this.state.selectedGenres} toggleGenre={this.toggleGenre}/>
           )}}/>
           <Route path='/moviedetail' exact render={()=>{return(
-            <Moviedetail selectedMovie={this.state.selectedMovie} removeFromCart={this.removeFromCart}/>
+            <Moviedetail selectedMovie={this.state.selectedMovie} selectedMovies={this.state.selectedMovies} removeFromCart={this.removeFromCart} addToCart={this.addToCart}/>
           )}} />
           <Route path='/shoppingcart' exact render={()=>{return(
             <ShoppingCart movies={this.state.selectedMovies} detailMovie={this.detailMovie} removeFromCart={this.removeFromCart} genres={this.state.genres} resetDetailView={this.resetDetailView}/>
