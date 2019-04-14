@@ -8,6 +8,7 @@ import Navbar from './components/navbar/navbar'
 import axios from 'axios'
 
 const UserContext = React.createContext()
+const MovieContext = React.createContext()
 class App extends Component {
   constructor () {
     super()
@@ -93,7 +94,9 @@ class App extends Component {
             </UserContext.Provider>
             )}}/>
           <Route path='/moviedetail' exact render={()=>{return(<Moviedetail/>)}} />
-          <Route path='/shoppingcart' exact render={()=>{return(<ShoppingCart movies={this.state.selectedMovies}/>)}} />
+          <MovieContext.Provider>
+            <Route path='/shoppingcart' exact render={()=>{return(<ShoppingCart movies={this.state.selectedMovies} genres={this.state.genres}/>)}} />
+          </MovieContext.Provider>
         </Switch>
       </div>
     );

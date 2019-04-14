@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './shoppingcart.css';
 import EmptyCases from '../../emptycases/emptycases'
+import Shoppingitems from '../../shoppingitems/shoppingitems'
 
 class Shoppingcart extends Component {
     constructor(props){
@@ -21,13 +22,11 @@ class Shoppingcart extends Component {
                 </div>
             )
         } else {
-            movieCart = this.props.movies.map((element,index) => {
-                return(
-                    <div key={index}>
-                        {element.original_title}
-                    </div>
-                );
-            });
+            movieCart = 
+            <div>
+                <h1>Your movies</h1>
+                <Shoppingitems movies={this.props.movies} genres={this.props.genres}/>
+            </div>
         }
         return (
             <div className='container'>

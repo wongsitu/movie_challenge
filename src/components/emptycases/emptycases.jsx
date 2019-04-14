@@ -9,8 +9,11 @@ const EmptyCases = props => {
         </div>)
     } else {
         emptyCase = 
-        (<div>
-            <h1> No movies in your cart</h1>
+        (<div className='d-flex justify-content-center mt-5'>
+            <div className='d-flex flex-column'>
+                <h1> No movies in your cart</h1>
+                <img className='m-auto' width='200' src="movieicon.png" alt=""/>
+            </div>
         </div>)
     }
     return (

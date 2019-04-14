@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './navbar.css';
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
-import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 
 class Navbar extends Component {
