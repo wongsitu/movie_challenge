@@ -1,0 +1,7 @@
+.scrollable{
+    overflow-x: auto;
+}
+
+.separator-top{
+    border-top: 1px solid white
+}
