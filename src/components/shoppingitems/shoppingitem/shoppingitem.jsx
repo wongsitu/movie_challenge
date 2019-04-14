@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
     card: {
@@ -56,7 +57,12 @@ function MediaControlCard(props) {
                 </Typography>
             </CardContent>
             <div className='m-auto p-3'>
-                <Button variant="contained" color="secondary" className={classes.button}>
+                <Link to='/moviedetail'>
+                    <Button className='mr-2' variant="contained" onClick={()=> props.detailMovie(props.movie)} color="primary">
+                        Details
+                    </Button>
+                </Link>
+                <Button variant="contained" color="secondary" onClick={()=> props.removeFromCart(props.movie)} className={classes.button}>
                     Remove
                 </Button>
             </div>

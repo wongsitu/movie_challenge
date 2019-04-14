@@ -7,8 +7,6 @@ import  ShoppingCart  from './components/pages/shoppingcart/shoppingcart'
 import Navbar from './components/navbar/navbar'
 import axios from 'axios'
 
-const UserContext = React.createContext()
-const MovieContext = React.createContext()
 class App extends Component {
   constructor () {
     super()
@@ -18,6 +16,7 @@ class App extends Component {
       genres:[],
       selectedGenres: [],
       selectedMovies: [],
+      selectedMovie: [],
     }
     this.setState = this.setState.bind(this);
   }
@@ -60,43 +59,70 @@ class App extends Component {
     this.searchbyFilter()
   }
 
-  addOrRemoveToCart = (movie) => {
-    if (!this.state.selectedMovies.includes(movie)) {
-      let array = this.state.selectedMovies;
+  addToCart = (movie) => {
+    let array = this.state.selectedMovies;
+    let movieIdsArray = []
+    if (array.length === 0){
       array.push(movie);
-      this.setState({selectedMovies: array});
     } else {
-      let array = this.state.selectedMovies;
-      var index = array.indexOf(movie)
-      if (index !== -1) {
-        array.splice(index, 1);
-        this.setState({selectedMovies: array});
+      array.forEach(elem =>{
+        movieIdsArray.push(elem.id)
+      })
+      if(!movieIdsArray.includes(movie.id)){
+        array.push(movie)
       }
     }
-    console.log(this.state.selectedMovies)
+    this.setState({selectedMovies: array});
+  }
+
+  removeFromCart = (movie) => {
+    let array = this.state.selectedMovies;
+    let idx;
+    array.forEach(elem => {
+      if(elem.id === movie.id){
+        idx = array.indexOf(elem)
+        array.splice(idx,1)
+      }
+    })
+    this.setState({selectedMovies: array});
+  }
+
+  resetDetailView = () =>{
+    this.setState({
+      selectedMovie: []
+    })
+  }
+
+  detailMovie = (movie) => {
+    this.setState({selectedMovie: movie})
   }
 
   componentDidMount () {
     axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=eea80f47c877f72cbd8716b40d5c3935&language=en-US`)
       .then(response => {
-        this.setState({ genres: response.data.genres });
+        this.setState({ 
+          genres: response.data.genres,
+        });
       });
+      this.resetDetailView()
   }
 
   render() {
     return (
       <div>
-        <Navbar handleSearch={this.handleSearch} genres={this.state.genres} toggleGenre={this.toggleGenre} counter={this.state.selectedMovies.length}/>
+        <div>
+          <Navbar handleSearch={this.handleSearch} genres={this.state.genres} toggleGenre={this.toggleGenre} counter={this.state.selectedMovies.length}/>
+        </div>
         <Switch>
           <Route path='/' exact render={() => {return (
-            <UserContext.Provider value={this.addOrRemoveToCart}>
-              <Homepage movies={this.state.movies} addOrRemoveToCart={this.addOrRemoveToCart}/>
-            </UserContext.Provider>
-            )}}/>
-          <Route path='/moviedetail' exact render={()=>{return(<Moviedetail/>)}} />
-          <MovieContext.Provider>
-            <Route path='/shoppingcart' exact render={()=>{return(<ShoppingCart movies={this.state.selectedMovies} genres={this.state.genres}/>)}} />
-          </MovieContext.Provider>
+            <Homepage movies={this.state.movies} addToCart={this.addToCart} detailMovie={this.detailMovie}/>
+          )}}/>
+          <Route path='/moviedetail' exact render={()=>{return(
+            <Moviedetail selectedMovie={this.state.selectedMovie} removeFromCart={this.removeFromCart}/>
+          )}} />
+          <Route path='/shoppingcart' exact render={()=>{return(
+            <ShoppingCart movies={this.state.selectedMovies} detailMovie={this.detailMovie} removeFromCart={this.removeFromCart} genres={this.state.genres} resetDetailView={this.resetDetailView}/>
+          )}} />
         </Switch>
       </div>
     );

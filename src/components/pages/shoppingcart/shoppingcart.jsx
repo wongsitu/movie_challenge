@@ -12,9 +12,12 @@ class Shoppingcart extends Component {
         }
     }
 
+    componentDidMount = () => {
+        this.props.resetDetailView()
+    }
+
     render() {
         let movieCart;
-        console.log(this.props.movies)
         if(this.props.movies.length === 0){
             return (
                 <div className="container">
@@ -25,7 +28,7 @@ class Shoppingcart extends Component {
             movieCart = 
             <div>
                 <h1>Your movies</h1>
-                <Shoppingitems movies={this.props.movies} genres={this.props.genres}/>
+                <Shoppingitems movies={this.props.movies} detailMovie={this.props.detailMovie} removeFromCart={this.props.removeFromCart} genres={this.props.genres}/>
             </div>
         }
         return (

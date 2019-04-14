@@ -14,7 +14,7 @@ class Shoppingitems extends Component {
         let MediaControlCardContainer = this.props.movies.map((elem,index) => {
             return(
                 <div className="m-2" key={index}>
-                    <MediaControlCard movie={elem} key={index} addOrRemoveToCart={this.props.addOrRemoveToCart} genres={this.props.genres}/>
+                    <MediaControlCard movie={elem} key={index} detailMovie={this.props.detailMovie} removeFromCart={this.props.removeFromCart} addOrRemoveToCart={this.props.addOrRemoveToCart} genres={this.props.genres}/>
                 </div>
             )
         })
