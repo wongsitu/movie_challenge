@@ -12,11 +12,15 @@ class Moviedetail extends Component {
 
     reportDeletedMovie = (movie) => {
         this.props.removeFromCart(movie)
-		}
+    }
 		
-		reportAddtoCart = (movie) => {
-			this.props.addToCart(movie)
-		}
+    reportAddtoCart = (movie) => {
+        this.props.addToCart(movie)
+    }
+
+    componentDidMount = () => {
+        document.title = this.props.selectedMovie.original_title
+    }
 
     render() {
         if (this.props.selectedMovie.length === 0){

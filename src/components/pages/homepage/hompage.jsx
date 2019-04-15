@@ -18,6 +18,7 @@ class Homepage extends Component {
   }
 
   componentDidMount = () => {
+    document.title = 'Movie Challenge'
     axios.get('https://api.themoviedb.org/3/discover/movie?api_key=eea80f47c877f72cbd8716b40d5c3935&language=en-US&sort_by=popularity.desc&page=1')
     .then(response => {
       this.setState({ homeMovies: response.data.results });
