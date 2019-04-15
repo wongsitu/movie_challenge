@@ -65,11 +65,13 @@ class Navbar extends Component {
                     </div>
                 </div>
                 <TextField
-                    id="standard-full-width"
+                    className="mt-0"
+                    id="filled-full-width"
                     placeholder="Search your favourite movies"
                     fullWidth
-                    name='query'
                     margin="normal"
+                    variant="filled"
+                    name='query'
                     InputLabelProps={{
                         shrink: true,
                     }}
