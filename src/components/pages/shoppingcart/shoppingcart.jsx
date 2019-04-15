@@ -25,10 +25,16 @@ class Shoppingcart extends Component {
                 </div>
             )
         } else {
+            let priceMovie = 0
+            console.log(this.props.movies)
+            this.props.movies.forEach(element => {
+                priceMovie = priceMovie + (2* parseInt(element.vote_average))
+            });
             movieCart = 
             <div>
                 <h1>Your movies</h1>
                 <Shoppingitems movies={this.props.movies}/>
+                <h2 className='mt-3'>Total Price: <span className='text-success'>{priceMovie} USD</span></h2>
             </div>
         }
         return (

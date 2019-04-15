@@ -42,7 +42,7 @@ function MediaControlCard(props) {
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
                         <Typography component="h5" variant="h5">
-                            {props.movie.original_title}
+                            {(props.movie.original_title).length > 30 ? (props.movie.original_title).slice(0, 30) + '...' :(props.movie.original_title)}
                         </Typography>
                         <Typography variant="subtitle1" color="textSecondary">
                             <div>
