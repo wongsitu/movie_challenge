@@ -35,7 +35,7 @@ class Navbar extends Component {
             )
         })
         return (
-            <div className='container'>
+            <div>
                 <div className='col-12 bg-dark pt-3 pb-3'>
                     <div className='d-flex justify-content-center align-items-center'>
                         <img className='mr-3 ml-3' width='100' src="moviedb.svg" alt=''/>
