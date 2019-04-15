@@ -22,6 +22,7 @@ const styles = {
 
 const MediaCard = props => {
   const { classes } = props;
+  
   return (
     <movieContext.Consumer>
       {value => 
@@ -44,14 +45,21 @@ const MediaCard = props => {
               </CardActionArea>
           </Link>
           <CardActions>
+            {(
+              (value.selectedMovies).filter(movie => {  return movie.id === props.movie.id}).length === 1 ?  
+              <Button size="small" color="primary" onClick={()=> value.removeFromCart(props.movie)}>
+                <i className="fas fa-trash-alt mr-2"></i> Remove from cart
+              </Button>
+              : 
               <Button size="small" color="primary" onClick={()=> value.addToCart(props.movie)}>
-                  <i className="fas fa-shopping-cart"></i> Add cart
+                <i className="fas fa-shopping-cart mr-2"></i> Add cart
               </Button>
-              <Link to='/moviedetail'>
-              <Button size="small" color="primary" onClick={()=> value.detailMovie(props.movie)}>
-                  <i className="fas fa-info-circle"></i> Details...
-              </Button>
-              </Link>
+            )}
+            <Link to='/moviedetail'>
+            <Button size="small" color="primary" onClick={()=> value.detailMovie(props.movie)}>
+                <i className="fas fa-info-circle mr-2"></i> Details...
+            </Button>
+            </Link>
           </CardActions>
       </Card>
     }

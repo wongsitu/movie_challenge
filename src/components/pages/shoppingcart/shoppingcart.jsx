@@ -26,7 +26,6 @@ class Shoppingcart extends Component {
             )
         } else {
             let priceMovie = 0
-            console.log(this.props.movies)
             this.props.movies.forEach(element => {
                 priceMovie = priceMovie + (2* parseInt(element.vote_average))
             });

@@ -121,6 +121,8 @@ class App extends Component {
                 { 
                   addToCart: this.addToCart,
                   detailMovie: this.detailMovie,
+                  selectedMovies: this.state.selectedMovies,
+                  removeFromCart: this.removeFromCart,
                 }
               }>
               <Homepage movies={this.state.movies} genres={this.state.genres} selectedGenres={this.state.selectedGenres} toggleGenre={this.toggleGenre}/>
