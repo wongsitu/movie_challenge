@@ -1,68 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Jenkins Setup
 
-## Available Scripts
+In this tutorial we are going to set tu Jenkins in a locally and everytime we push a project, it should automatically build.
 
-In the project directory, you can run:
+1. Download Java 8
+   Jenkins runs using Java, so we need it go to the following link: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+   In my case I am using MACOS, so i'll download the jdk-8u211-macosx-x64.dmg version.
 
-### `npm start`
+2. Download Jenkins LTS
+   Now go to the following link: https://jenkins.io/download/, I would recommend downloading the long term support version for your opperating system. Again,
+   in my case we are using MacOS, so I'll choose that option.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Once it donwloaded, Jenkins should automatically open in port 8080. If it doenst open, there a possibility that Java wasn't installed correctly.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+3.  Unlocking Jenkins
 
-### `npm test`
+    3.1. I will ask for a password to unlock it. To do this, go to the path mentioned in your files 'Users/Shared/Jenkins/Home'.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    3.2 Once there, you should see a secrets folder. To unlock it, right click on the folder and and select 'Get info'. A window will pop up and in the last tab 'Sharing Permissions' you will need to add yourself. At the bottom right corner of the window, click in the lock and select the users you want to add. It will ask for your credentials, just enter them.
 
-### `npm run build`
+    3.3 Now you should have the secrets folder unlocked, now open the initialAdminPassword file. If it's locked, repeat step 3.2. Then copy and paste the password into the
+    Jenkins interface. Now you have Jenkins ready to work.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4.  Jenkins Github plugin
+    In this example we are going to be using github as source repository. We need to install a plugin for this to work.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+        4.1. Click on 'Manage Jenkins' in the left side bar, go to the 'Available' tab and in the search bar type 'Github'.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        4.2. Look for the 'Github Integration Plugin' and click on  the 'donwload now and install after restart'. this will take you to another window, scroll at the bottom and
+        click on the 'Restart Jenkins when installation is complete and no other jobs are running'.
 
-### `npm run eject`
+5.  Creating a Jenkins job.
+    Once Jenkins has restarted:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+        5.1 In you interface, on the left side bar, click on New Item.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+        5.2 Give it a name and select Freestyle project option. Click on the ok button.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+        5.3 In General tab, click the 'Github project' checkbox and copy and paste the URL.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+        5.4 In Souce code management, click on 'Git', and give it the Repository URL, this is the one that appears when you click on the gree clone button. Since our repo is public, we dont need to add any credentials, we can also add extra branches for Jenkins to build but in this tutorial we are only going to use master.
 
-## Learn More
+        5.5 In Build triggers, click on the 'Github Hook trigger GITScm polling', this is the plugin we installed in step 4 and it allows Jenkins to build everytime we push changes to our project.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        5.6 Click on the save button, now we have a Jenkins job configured.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+6.  Ngrok
+    Because we are running locally, everytime we are commiting and pushing changes we need a way to notify Jenkins about it, so we are going to set a Webhook on Github. But since it will ask us for a URL, we cannot give it our localhost or private URL. Here's where Ngrok comes in, this will expose our port 8080.
 
-### Code Splitting
+        6.1 Go to this link and follow the instructions until you get your token (step 3): https://ngrok.com/download
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+        6.2 Assuming that you already donwloaded it, unziped it, got your token, run the following command in your terminal: ./ngrok http 8080. This will give us an URL to work with. It should look like: http://3b2db437.ngrok.io
 
-### Analyzing the Bundle Size
+7.  Setting up our Github Webhook
+    7.1 In your project repository, go to the settings, click on Web Hooks and click on Add WebHook
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+    7.2 Put the URL that Ngrok provided to you and add /github-webhook/ to it so if your URL is: http://3b2db437.ngrok.io, you should write http://3b2db437.ngrok.io/github-webhook/
 
-### Making a Progressive Web App
+    7.3 In Content type, select application/json and then select Just push event checkbox.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+    7.4 Make sure the Active checkbox is checked.
 
-### Advanced Configuration
+    7.5 Finally click on Update Webhook.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Now everytime you make a change and push it to your repo, Jenkins will build it.
