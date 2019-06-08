@@ -22,49 +22,49 @@ const styles = {
 
 const MediaCard = props => {
   const { classes } = props;
-  
+
   return (
     <movieContext.Consumer>
-      {value => 
-      <Card className={classes.card}>
-          <Link to='/moviedetail' onClick={()=> value.detailMovie(props.movie)}>
-              <CardActionArea>
-                  <CardMedia
-                      className={classes.media}
-                      image={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`}
-                      title="Contemplative Reptile"
-                  />
-                  <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {props.movie.original_title}
-                  </Typography>
-                  <Typography component="p">
-                      {(props.movie.overview).length > 150 ? (props.movie.overview).slice(0, 150) + '...' :(props.movie.overview)}
-                  </Typography>
-                  </CardContent>
-              </CardActionArea>
+      {value =>
+        <Card className={classes.card}>
+          <Link to='/moviedetail' onClick={() => value.detailMovie(props.movie)}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={`https://image.tmdb.org/t/p/w500${props.movie.poster_path}`}
+                title="Contemplative Reptile"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {props.movie.original_title}
+                </Typography>
+                <Typography component="p">
+                  {(props.movie.overview).length > 150 ? (props.movie.overview).slice(0, 150) + '...' : (props.movie.overview)}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
           </Link>
           <CardActions>
             {(
-              (value.selectedMovies).filter(movie => {  return movie.id === props.movie.id}).length === 1 ?  
-              <Button size="small" color="primary" onClick={()=> value.removeFromCart(props.movie)}>
-                <i className="fas fa-trash-alt mr-2"></i> Remove from cart
+              (value.selectedMovies).filter(movie => { return movie.id === props.movie.id }).length === 1 ?
+                <Button size="small" color="primary" onClick={() => value.removeFromCart(props.movie)}>
+                  <i className="fas fa-trash-alt mr-2"></i> Remove from cart
               </Button>
-              : 
-              <Button size="small" color="primary" onClick={()=> value.addToCart(props.movie)}>
-                <i className="fas fa-shopping-cart mr-2"></i> Add cart
+                :
+                <Button size="small" color="primary" onClick={() => value.addToCart(props.movie)}>
+                  <i className="fas fa-shopping-cart mr-2"></i> Add cart
               </Button>
             )}
             <Link to='/moviedetail'>
-            <Button size="small" color="primary" onClick={()=> value.detailMovie(props.movie)}>
+              <Button size="small" color="primary" onClick={() => value.detailMovie(props.movie)}>
                 <i className="fas fa-info-circle mr-2"></i> Details...
             </Button>
             </Link>
           </CardActions>
-      </Card>
-    }
+        </Card>
+      }
     </movieContext.Consumer>
-    );
+  );
 };
 
 MediaCard.propTypes = {
