@@ -24,32 +24,32 @@ Once it donwloaded, Jenkins should automatically open in port 8080. If it doenst
 4.  Jenkins Github plugin
     In this example we are going to be using github as source repository. We need to install a plugin for this to work.
 
-        4.1. Click on 'Manage Jenkins' in the left side bar, go to the 'Available' tab and in the search bar type 'Github'.
+    4.1. Click on 'Manage Jenkins' in the left side bar, go to the 'Available' tab and in the search bar type 'Github'.
 
-        4.2. Look for the 'Github Integration Plugin' and click on  the 'donwload now and install after restart'. this will take you to another window, scroll at the bottom and
-        click on the 'Restart Jenkins when installation is complete and no other jobs are running'.
+    4.2. Look for the 'Github Integration Plugin' and click on the 'donwload now and install after restart'. this will take you to another window, scroll at the bottom and
+    click on the 'Restart Jenkins when installation is complete and no other jobs are running'.
 
 5.  Creating a Jenkins job.
     Once Jenkins has restarted:
 
-        5.1 In you interface, on the left side bar, click on New Item.
+    5.1 In you interface, on the left side bar, click on New Item.
 
-        5.2 Give it a name and select Freestyle project option. Click on the ok button.
+    5.2 Give it a name and select Freestyle project option. Click on the ok button.
 
-        5.3 In General tab, click the 'Github project' checkbox and copy and paste the URL.
+    5.3 In General tab, click the 'Github project' checkbox and copy and paste the URL.
 
-        5.4 In Souce code management, click on 'Git', and give it the Repository URL, this is the one that appears when you click on the gree clone button. Since our repo is public, we dont need to add any credentials, we can also add extra branches for Jenkins to build but in this tutorial we are only going to use master.
+    5.4 In Souce code management, click on 'Git', and give it the Repository URL, this is the one that appears when you click on the gree clone button. Since our repo is public, we dont need to add any credentials, we can also add extra branches for Jenkins to build but in this tutorial we are only going to use master.
 
-        5.5 In Build triggers, click on the 'Github Hook trigger GITScm polling', this is the plugin we installed in step 4 and it allows Jenkins to build everytime we push changes to our project.
+    5.5 In Build triggers, click on the 'Github Hook trigger GITScm polling', this is the plugin we installed in step 4 and it allows Jenkins to build everytime we push changes to our project.
 
-        5.6 Click on the save button, now we have a Jenkins job configured.
+    5.6 Click on the save button, now we have a Jenkins job configured.
 
 6.  Ngrok
     Because we are running locally, everytime we are commiting and pushing changes we need a way to notify Jenkins about it, so we are going to set a Webhook on Github. But since it will ask us for a URL, we cannot give it our localhost or private URL. Here's where Ngrok comes in, this will expose our port 8080.
 
-        6.1 Go to this link and follow the instructions until you get your token (step 3): https://ngrok.com/download
+    6.1 Go to this link and follow the instructions until you get your token (step 3): https://ngrok.com/download
 
-        6.2 Assuming that you already donwloaded it, unziped it, got your token, run the following command in your terminal: ./ngrok http 8080. This will give us an URL to work with. It should look like: http://3b2db437.ngrok.io
+    6.2 Assuming that you already donwloaded it, unziped it, got your token, run the following command in your terminal: ./ngrok http 8080. This will give us an URL to work with. It should look like: http://3b2db437.ngrok.io
 
 7.  Setting up our Github Webhook
     7.1 In your project repository, go to the settings, click on Web Hooks and click on Add WebHook
